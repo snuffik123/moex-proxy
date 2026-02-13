@@ -13,6 +13,10 @@ MOEX_URL = (
 def index():
     return "OK"
 
+@app.route("/healthcheck")
+def healthcheck():
+    return "OK"
+
 @app.route("/prices")
 def prices():
     try:
