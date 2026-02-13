@@ -27,7 +27,9 @@ def prices():
         result = {}
         for row in rows:
             secid, last, bid, ask, close = row
-            result[secid] = last or bid or ask or close
+            price = last if last is not None else close  # цена закрытия если торгов нет
+            if price is not None:
+                result[secid] = price
         return jsonify(result)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -35,3 +37,7 @@ def prices():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
+
