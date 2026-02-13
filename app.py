@@ -4,9 +4,6 @@ from flask import Flask, jsonify
 
 app = Flask(__name__)
 
-# Эта строка говорит gunicorn какой порт использовать
-port = int(os.environ.get("PORT", 10000))
-
 MOEX_URL = (
     "https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json"
     "?iss.meta=off&iss.only=marketdata&marketdata.columns=SECID,LAST,BID,OFFER,LCLOSEPRICE"
@@ -32,4 +29,5 @@ def prices():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
